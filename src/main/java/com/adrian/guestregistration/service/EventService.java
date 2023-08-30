@@ -1,6 +1,7 @@
 package com.adrian.guestregistration.service;
 
 import com.adrian.guestregistration.model.Event;
+import com.adrian.guestregistration.model.EventParticipant;
 import com.adrian.guestregistration.repo.EventRepo;
 import com.adrian.guestregistration.validator.EntityValidator;
 import jakarta.transaction.Transactional;

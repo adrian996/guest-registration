@@ -1,6 +1,7 @@
 -- Create the Event table
 CREATE TABLE events (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
     date DATE NOT NULL,
     venue VARCHAR(255) NOT NULL,
     additional_information VARCHAR(5000)
@@ -25,12 +26,20 @@ CREATE TABLE persons (
     additional_information VARCHAR(1500)
 );
 
--- Create the generalized join table for Event and associated entities
-CREATE TABLE event_participant (
+-- Create the join table for Event and Person
+CREATE TABLE event_person (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     event_id BIGINT NOT NULL,
-    associated_id BIGINT NOT NULL,
-    associated_type VARCHAR(50) NOT NULL,
-    PRIMARY KEY (event_id, associated_id),
+    person_id BIGINT NOT NULL,
     FOREIGN KEY (event_id) REFERENCES events(id),
-    CHECK (associated_type IN ('COMPANY', 'PERSON'))
+    FOREIGN KEY (person_id) REFERENCES persons(id)
+);
+
+-- Create the join table for Event and Company
+CREATE TABLE event_company (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    event_id BIGINT NOT NULL,
+    company_id BIGINT NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES events(id),
+    FOREIGN KEY (company_id) REFERENCES companies(id)
 );

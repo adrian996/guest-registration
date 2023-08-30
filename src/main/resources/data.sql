@@ -1,8 +1,8 @@
 -- Insert mock data into Event table
-INSERT INTO events (date, venue, additional_information) VALUES
-    ('2023-09-01', 'Conference Hall A', 'Annual Conference'),
-    ('2023-10-15', 'Grand Hotel Ballroom', 'Product Launch'),
-    ('2023-11-20', 'Community Center', 'Workshop on Innovation');
+INSERT INTO events (name, date, venue, additional_information) VALUES
+    ('Conference 2023', '2023-09-01', 'Conference Hall A', 'Annual Conference'),
+    ('iPhone 15 Launch event', '2023-10-15', 'Grand Hotel Ballroom', 'Product Launch'),
+    ('Sales workshop', '2023-11-20', 'Community Center', 'Workshop on Innovation');
 
 -- Insert mock data into Company table
 INSERT INTO companies (legal_name, registry_code, number_of_participants, additional_information) VALUES
@@ -26,16 +26,16 @@ INSERT INTO persons (first_name, last_name, id_code, payment_method, additional_
 
 
 
--- Insert mock data into Event_Participant table
 -- Associations between events and companies
-INSERT INTO event_participant (event_id, associated_id, associated_type) VALUES
-    (1, 1, 'COMPANY'),
-    (2, 2, 'COMPANY'),
-    (3, 3, 'COMPANY');
+INSERT INTO event_company (event_id, company_id) VALUES
+    (1, 1),
+    (2, 2),
+    (3, 3);
 
 -- Associations between events and persons
-INSERT INTO event_participant (event_id, associated_id, associated_type) VALUES
-    (1, 4, 'PERSON'),
-    (2, 5, 'PERSON'),
-    (3, 6, 'PERSON');
+INSERT INTO event_person (event_id, person_id) VALUES
+    (1, 4),
+    (2, 5),
+    (3, 6);
+
 

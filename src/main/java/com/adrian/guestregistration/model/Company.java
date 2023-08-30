@@ -12,10 +12,9 @@ import org.hibernate.validator.constraints.Length;
 @Setter
 @Entity
 @Table(name = "companies")
-public class Company {
+public class Company implements EventParticipant{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "company_id")
     private Long id;
 
     @NotBlank(message = "Name can't be empty")

@@ -1,9 +1,55 @@
 package com.adrian.guestregistration.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.adrian.guestregistration.model.Event;
+import com.adrian.guestregistration.service.EventService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/events")
+@RequiredArgsConstructor
+@Slf4j
 public class EventController {
+    private final EventService eventService;
+
+    @GetMapping
+    public List<Event> getAllEvents() {
+        log.info("Getting all events");
+        return eventService.getAllEvents();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Event> getEventById(@PathVariable Long id) {
+        log.info("Getting event by id " + id);
+        Optional<Event> event = eventService.getEventById(id);
+        return event.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
+        log.info("Creating new event: {}", event);
+        Event createdEvent = eventService.createEvent(event);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdEvent);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
+        log.info("Updating event with id " + id);
+        Event updated = eventService.updateEvent(id, updatedEvent);
+        return ResponseEntity.ok(updated);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
+        log.info("Deleting event with id " + id);
+        eventService.deleteEvent(id);
+        return ResponseEntity.noContent().build();
+    }
 }
+

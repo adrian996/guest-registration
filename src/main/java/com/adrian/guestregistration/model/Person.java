@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 @Setter
 @Entity
 @Table(name = "persons")
-public class Person {
+public class Person implements EventParticipant{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
