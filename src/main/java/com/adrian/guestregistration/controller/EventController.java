@@ -51,5 +51,19 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/future")
+    public ResponseEntity<List<Event>> getFutureEvents() {
+        log.info("Getting future events");
+        List<Event> futureEvents = eventService.getFutureEvents();
+        return ResponseEntity.ok(futureEvents);
+    }
+
+    @GetMapping("/past")
+    public ResponseEntity<List<Event>> getPastEvents() {
+        log.info("Getting past events");
+        List<Event> pastEvents = eventService.getPastEvents();
+        return ResponseEntity.ok(pastEvents);
+    }
 }
 

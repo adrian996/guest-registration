@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +44,16 @@ public class EventService {
         existingEvent.setAdditionalInformation(updatedEvent.getAdditionalInformation());
 
         return eventRepo.save(existingEvent);
+    }
+
+    public List<Event> getFutureEvents() {
+        Timestamp currentDate = new Timestamp(System.currentTimeMillis());
+        return eventRepo.findByDateAfter(currentDate);
+    }
+
+    public List<Event> getPastEvents() {
+        Timestamp currentDate = new Timestamp(System.currentTimeMillis());
+        return eventRepo.findByDateBefore(currentDate);
     }
 
     @Transactional

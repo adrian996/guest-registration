@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 @NoArgsConstructor
@@ -27,7 +28,7 @@ public class Event {
 
     @NotNull
     @Future
-    private Date date;
+    private Timestamp date;
 
     @NotBlank(message = "Venue can't be empty")
     @Length(max = 128)
