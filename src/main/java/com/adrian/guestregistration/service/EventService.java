@@ -26,6 +26,11 @@ public class EventService {
         return eventRepo.findById(id);
     }
 
+    public List<EventParticipant> getParticipantsByEventId(Long id) {
+        return eventRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found")).getParticipants();
+    }
+
     @Transactional
     public Event createEvent(Event event) {
         //entityValidator.validateEvent(event);

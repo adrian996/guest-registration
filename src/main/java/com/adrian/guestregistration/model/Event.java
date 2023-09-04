@@ -52,6 +52,7 @@ public class Event {
     private List<Person> persons = new ArrayList<>();
 
     @Transient
+    @JsonIgnore
     private List<EventParticipant> participants = new ArrayList<>();
 
     @PostLoad
