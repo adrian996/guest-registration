@@ -1,5 +1,7 @@
 package com.adrian.guestregistration.model;
 
+import com.adrian.guestregistration.enums.ParticipantType;
+import com.adrian.guestregistration.enums.PaymentMethod;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +28,14 @@ public class Company implements EventParticipant{
     @NotNull
     private Integer numberOfParticipants;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
     @Length(max = 5000)
     private String additionalInformation;
+
+    @Override
+    public ParticipantType getType() {
+        return ParticipantType.COMPANY;
+    }
 }
