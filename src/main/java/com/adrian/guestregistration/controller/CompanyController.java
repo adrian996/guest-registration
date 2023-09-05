@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/companies")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class CompanyController {
 
     private final CompanyService companyService;

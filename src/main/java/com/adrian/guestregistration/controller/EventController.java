@@ -24,7 +24,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class EventController {
     private final EventService eventService;
-    private final PersonService personService;
 
     @GetMapping
     public List<Event> getAllEvents() {

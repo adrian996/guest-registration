@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequestMapping("/api/persons")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin(origins = "*")
 public class PersonController {
 
     private final PersonService personService;
