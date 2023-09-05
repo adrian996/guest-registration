@@ -1,8 +1,13 @@
 package com.adrian.guestregistration.controller;
 
+import com.adrian.guestregistration.dto.ParticipantRequestDTO;
+import com.adrian.guestregistration.model.Company;
 import com.adrian.guestregistration.model.Event;
 import com.adrian.guestregistration.model.EventParticipant;
+import com.adrian.guestregistration.model.Person;
 import com.adrian.guestregistration.service.EventService;
+import com.adrian.guestregistration.service.PersonService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,6 +24,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class EventController {
     private final EventService eventService;
+    private final PersonService personService;
 
     @GetMapping
     public List<Event> getAllEvents() {
@@ -47,6 +53,21 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(createdEvent);
     }
 
+    @PostMapping("/{id}/person")
+    public ResponseEntity<Event> addPersonParticipantToEvent(@PathVariable Long id,
+            @RequestBody Person personDTO) {
+        log.info("Adding new person participant to event: " + ((Person) personDTO).getFirstName());
+        eventService.addPersonToEvent(personDTO, id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
+    @PostMapping("/{id}/company")
+    public ResponseEntity<Event> addCompanyParticipantToEvent(@PathVariable Long id, @RequestBody Company companyDTO) {
+        log.info("Adding new company participant to event: " + companyDTO.getLegalName());
+        eventService.addCompanyToEvent(companyDTO, id);
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
         log.info("Updating event with id " + id);
@@ -58,6 +79,13 @@ public class EventController {
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
         log.info("Deleting event with id " + id);
         eventService.deleteEvent(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/participants")
+    public ResponseEntity<Void> deleteParticipantFromEvent(@RequestBody ParticipantRequestDTO participantRequestDTO) {
+        log.info("Deleting participant with id " + participantRequestDTO.getParticipantId());
+        eventService.deleteParticipantFromEvent(participantRequestDTO);
         return ResponseEntity.noContent().build();
     }
 
@@ -75,4 +103,3 @@ public class EventController {
         return ResponseEntity.ok(pastEvents);
     }
 }
-

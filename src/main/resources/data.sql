@@ -5,10 +5,10 @@ INSERT INTO events (name, date, venue, additional_information) VALUES
     ('Sales workshop', '2023-11-20', 'Community Center', 'Workshop on Innovation');
 
 -- Insert mock data into Company table
-INSERT INTO companies (legal_name, registry_code, number_of_participants, additional_information) VALUES
-    ('ABC Corporation', '12345678', 50, 'Leading technology company'),
-    ('XYZ Enterprises', '87654321', 30, 'Global manufacturing company'),
-    ('QuickStart Solutions', '98765432', 20, 'Software development startup');
+INSERT INTO companies (legal_name, registry_code, number_of_participants, payment_method, additional_information) VALUES
+    ('ABC Corporation', '12345678', 50, 'BANK_TRANSFER', 'Leading technology company'),
+    ('XYZ Enterprises', '87654321', 30, 'BANK_TRANSFER', 'Global manufacturing company'),
+    ('QuickStart Solutions', '98765432', 20, 'BANK_TRANSFER', 'Software development startup');
 
 -- Insert mock data into Person table
 INSERT INTO persons (first_name, last_name, id_code, payment_method, additional_information) VALUES

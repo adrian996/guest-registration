@@ -10,11 +10,12 @@ import org.hibernate.validator.constraints.Length;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
 @Table(name = "companies")
-public class Company implements EventParticipant{
+public class Company implements EventParticipant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

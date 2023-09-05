@@ -13,6 +13,7 @@ CREATE TABLE companies (
     legal_name VARCHAR(255) NOT NULL,
     registry_code VARCHAR(255) NOT NULL,
     number_of_participants INT NOT NULL,
+    payment_method ENUM('BANK_TRANSFER', 'CASH') NOT NULL,
     additional_information VARCHAR(5000)
 );
 

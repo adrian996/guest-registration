@@ -1,7 +1,11 @@
 package com.adrian.guestregistration.service;
 
+import com.adrian.guestregistration.dto.ParticipantRequestDTO;
+import com.adrian.guestregistration.enums.ParticipantType;
+import com.adrian.guestregistration.model.Company;
 import com.adrian.guestregistration.model.Event;
 import com.adrian.guestregistration.model.EventParticipant;
+import com.adrian.guestregistration.model.Person;
 import com.adrian.guestregistration.repo.EventRepo;
 import com.adrian.guestregistration.validator.EntityValidator;
 import jakarta.transaction.Transactional;
@@ -16,6 +20,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class EventService {
     private final EventRepo eventRepo;
+    private final PersonService personService;
+    private final CompanyService companyService;
     private final EntityValidator entityValidator;
 
     public List<Event> getAllEvents() {
@@ -32,8 +38,63 @@ public class EventService {
     }
 
     @Transactional
+    public Event addPersonToEvent(Person personDTO, Long id) {
+        Event event = eventRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+        Person newPerson = Person.builder()
+                .firstName(personDTO.getFirstName())
+                .lastName(personDTO.getLastName())
+                .idCode(personDTO.getIdCode())
+                .paymentMethod(personDTO.getPaymentMethod())
+                .additionalInformation(personDTO.getAdditionalInformation())
+                .build();
+
+        personService.createPerson(newPerson);
+        event.getPersons().add(newPerson);
+
+        return eventRepo.save(event);
+    }
+
+    @Transactional
+    public Event addCompanyToEvent(Company companyDTO, Long id) {
+        Event event = eventRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+        Company newCompany = Company.builder()
+                .legalName(companyDTO.getLegalName())
+                .registryCode(companyDTO.getRegistryCode())
+                .numberOfParticipants(companyDTO.getNumberOfParticipants())
+                .paymentMethod(companyDTO.getPaymentMethod())
+                .additionalInformation(companyDTO.getAdditionalInformation())
+                .build();
+
+        companyService.createCompany(newCompany);
+        event.getCompanies().add(newCompany);
+
+        return eventRepo.save(event);
+    }
+
+    @Transactional
+    public void deleteParticipantFromEvent(ParticipantRequestDTO participantRequestDTO) {
+        Event event = eventRepo.findById(participantRequestDTO.getEventId())
+                .orElseThrow(() -> new IllegalArgumentException("Event not found"));
+
+        if (participantRequestDTO.getParticipantType() == ParticipantType.PERSON) {
+            Person person = personService.getPersonById(participantRequestDTO.getParticipantId())
+                    .orElseThrow(() -> new IllegalArgumentException("Participant not found"));
+            event.getPersons().remove(person);
+        } else if (participantRequestDTO.getParticipantType() == ParticipantType.COMPANY) {
+            Company company = companyService.getCompanyById(participantRequestDTO.getParticipantId())
+                    .orElseThrow(() -> new IllegalArgumentException("Company not found"));
+            event.getCompanies().remove(company);
+        }
+        eventRepo.save(event);
+    }
+
+    @Transactional
     public Event createEvent(Event event) {
-        //entityValidator.validateEvent(event);
+        // entityValidator.validateEvent(event);
         return eventRepo.save(event);
     }
 
@@ -42,7 +103,7 @@ public class EventService {
         Event existingEvent = eventRepo.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Event not found"));
 
-        //entityValidator.validateEvent(updatedEvent);
+        // entityValidator.validateEvent(updatedEvent);
 
         existingEvent.setDate(updatedEvent.getDate());
         existingEvent.setVenue(updatedEvent.getVenue());

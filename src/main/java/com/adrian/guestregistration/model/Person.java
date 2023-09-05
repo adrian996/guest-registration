@@ -6,13 +6,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @Entity
 @Table(name = "persons")
-public class Person implements EventParticipant{
+public class Person implements EventParticipant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,4 +39,3 @@ public class Person implements EventParticipant{
         return ParticipantType.PERSON;
     }
 }
-
