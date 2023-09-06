@@ -37,6 +37,14 @@ public class Event {
     @Length(max = 1500)
     private String additionalInformation;
 
+    public Event(Long id, String name, Timestamp date, String venue, String additionalInformation) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.venue = venue;
+        this.additionalInformation = additionalInformation;
+    }
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(name = "event_company",

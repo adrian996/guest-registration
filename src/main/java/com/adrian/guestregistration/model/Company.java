@@ -24,6 +24,7 @@ public class Company implements EventParticipant {
     private String legalName;
 
     @NotBlank(message = "Registry code can't be empty")
+    @Column(unique = true)
     private String registryCode;
 
     @NotNull
@@ -34,6 +35,7 @@ public class Company implements EventParticipant {
 
     @Length(max = 5000)
     private String additionalInformation;
+
 
     @Override
     public ParticipantType getType() {

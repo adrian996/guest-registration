@@ -26,6 +26,7 @@ public class Person implements EventParticipant {
     private String lastName;
 
     @NotBlank(message = "Id code can't be empty")
+    @Column(unique = true)
     private String idCode;
 
     @Enumerated(EnumType.STRING)

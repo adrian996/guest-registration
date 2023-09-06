@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: test
+    password: pwd
+    driverClassName: org.h2.Driver
+  jpa:
+    properties:
+      hibernate-dialect: org.hibernate.dialect.H2Dialect
+      hibernate-format: 'true'
+    hibernate:
+      ddl-auto: none
+springdoc:
+  swagger-ui:
+    operationsSorter: 'method'
+  api-docs:
+    path: '/api-docs'

@@ -11,7 +11,7 @@ CREATE TABLE events (
 CREATE TABLE companies (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     legal_name VARCHAR(255) NOT NULL,
-    registry_code VARCHAR(255) NOT NULL,
+    registry_code VARCHAR(255) UNIQUE NOT NULL,
     number_of_participants INT NOT NULL,
     payment_method ENUM('BANK_TRANSFER', 'CASH') NOT NULL,
     additional_information VARCHAR(5000)
@@ -22,7 +22,7 @@ CREATE TABLE persons (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
-    id_code VARCHAR(255) NOT NULL,
+    id_code VARCHAR(255) UNIQUE NOT NULL,
     payment_method ENUM('BANK_TRANSFER', 'CASH') NOT NULL,
     additional_information VARCHAR(1500)
 );

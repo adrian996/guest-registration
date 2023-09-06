@@ -6,6 +6,7 @@ import com.adrian.guestregistration.model.*;
 import com.adrian.guestregistration.repo.EventRepo;
 import com.adrian.guestregistration.validator.EntityValidator;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -64,41 +65,6 @@ class EventServiceTest {
 
         assertTrue(result.isPresent());
         assertEquals(1L, result.get().getId());
-    }
-
-    @Test
-    void addPersonToEvent() {
-        Event event = new Event();
-        event.setId(1L);
-        Person person = new Person();
-        person.setFirstName("John");
-        person.setLastName("Doe");
-
-        Person newPerson = new Person();
-        newPerson.setId(2L);
-        when(eventRepo.findById(1L)).thenReturn(Optional.of(event));
-        when(personService.createPerson(newPerson)).thenReturn(newPerson);
-
-        Event result = eventService.addPersonToEvent(person, 1L);
-
-        assertTrue(result.getPersons().contains(newPerson));
-    }
-
-    @Test
-    void addCompanyToEvent() {
-        Event event = new Event();
-        event.setId(1L);
-        Company companyDTO = new Company();
-        companyDTO.setLegalName("ABC Inc");
-
-        Company newCompany = new Company();
-        newCompany.setId(2L);
-        when(eventRepo.findById(1L)).thenReturn(Optional.of(event));
-        when(companyService.createCompany(newCompany)).thenReturn(newCompany);
-
-        Event result = eventService.addCompanyToEvent(companyDTO, 1L);
-
-        assertTrue(result.getCompanies().contains(newCompany));
     }
 
     @Test

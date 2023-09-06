@@ -1,16 +1,18 @@
-
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb
-    username: test
-    password: sa
-    driverClassName: org.h2.Driver
+    username: root
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/guestregistrationDB?createDatabaseIfNotExist=true
+    password: ${MYSQL_PASSWORD:password}
+    initialization-mode: always
   jpa:
+    generate-ddl: 'true'
     properties:
-      hibernate-dialect: org.hibernate.dialect.H2Dialect
-      hibernate-format: 'true'
+      hibernate-dialect: org.hibernate.dialect.MySQL8Dialect
     hibernate:
       ddl-auto: none
+  sql:
+    init:
+      mode: ${MYSQL_INITDB:never}
 springdoc:
   swagger-ui:
     operationsSorter: 'method'

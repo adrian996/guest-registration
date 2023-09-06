@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.adrian</groupId>
 	<artifactId>guest-registration</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>guest-registration</name>
 	<description>Test assignment</description>
 	<properties>
@@ -73,6 +73,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
+					<mainClass>com.adrian.guestregistration.GuestRegistrationApplication</mainClass>
 					<excludes>
 						<exclude>
 							<groupId>org.projectlombok</groupId>

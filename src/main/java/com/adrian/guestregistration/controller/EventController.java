@@ -8,6 +8,7 @@ import com.adrian.guestregistration.model.Person;
 import com.adrian.guestregistration.service.EventService;
 import com.adrian.guestregistration.service.PersonService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class EventController {
     }
 
     @PostMapping
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
+    public ResponseEntity<Event> createEvent(@Valid @RequestBody Event event) {
         log.info("Creating new event: {}", event);
         Event createdEvent = eventService.createEvent(event);
         return ResponseEntity.status(HttpStatus.OK).body(createdEvent);
@@ -61,14 +62,14 @@ public class EventController {
     }
 
     @PostMapping("/{id}/company")
-    public ResponseEntity<Event> addCompanyParticipantToEvent(@PathVariable Long id, @RequestBody Company companyDTO) {
+    public ResponseEntity<Event> addCompanyParticipantToEvent(@PathVariable Long id, @Valid @RequestBody Company companyDTO) {
         log.info("Adding new company participant to event: " + companyDTO.getLegalName());
         eventService.addCompanyToEvent(companyDTO, id);
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @RequestBody Event updatedEvent) {
+    public ResponseEntity<Event> updateEvent(@PathVariable Long id, @Valid @RequestBody Event updatedEvent) {
         log.info("Updating event with id " + id);
         Event updated = eventService.updateEvent(id, updatedEvent);
         return ResponseEntity.ok(updated);

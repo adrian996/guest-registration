@@ -1,5 +1,6 @@
 package com.adrian.guestregistration.controller;
 
+import com.adrian.guestregistration.enums.PaymentMethod;
 import com.adrian.guestregistration.model.Company;
 import com.adrian.guestregistration.service.CompanyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,7 +61,13 @@ public class CompanyControllerTest {
 
     @Test
     void createCompany() throws Exception {
-        Company company = new Company();
+        Company company = Company.builder().
+                id(1L).
+                legalName("Company").
+                registryCode("213123").
+                numberOfParticipants(20).
+                paymentMethod(PaymentMethod.BANK_TRANSFER).build();
+
         when(companyService.createCompany(any(Company.class))).thenReturn(company);
 
         mockMvc.perform(post("/api/companies")
@@ -73,7 +80,12 @@ public class CompanyControllerTest {
     @Test
     void updateCompany() throws Exception {
         Long companyId = 1L;
-        Company updatedCompany = new Company();
+        Company updatedCompany = Company.builder().
+                id(companyId).
+                legalName("Company").
+                registryCode("213123").
+                numberOfParticipants(20).
+                paymentMethod(PaymentMethod.BANK_TRANSFER).build();
         updatedCompany.setId(companyId);
         when(companyService.updateCompany(eq(companyId), any(Company.class))).thenReturn(updatedCompany);
 

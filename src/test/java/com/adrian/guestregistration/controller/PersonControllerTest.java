@@ -1,5 +1,6 @@
 package com.adrian.guestregistration.controller;
 
+import com.adrian.guestregistration.enums.PaymentMethod;
 import com.adrian.guestregistration.model.Person;
 import com.adrian.guestregistration.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -60,7 +61,13 @@ public class PersonControllerTest {
 
     @Test
     void shouldCreatePerson() throws Exception {
-        Person person = new Person();
+        Person person = Person.builder().
+                firstName("person").
+                lastName("lastname").
+                idCode("39606052784").
+                paymentMethod(PaymentMethod.BANK_TRANSFER).
+                build();
+
         when(personService.createPerson(any(Person.class))).thenReturn(person);
 
         mockMvc.perform(post("/api/persons")
@@ -73,7 +80,12 @@ public class PersonControllerTest {
     @Test
     void shouldUpdatePerson() throws Exception {
         Long personId = 1L;
-        Person updatedPerson = new Person();
+        Person updatedPerson = Person.builder().
+                firstName("person").
+                lastName("lastname").
+                idCode("39606052784").
+                paymentMethod(PaymentMethod.BANK_TRANSFER).
+                build();
         updatedPerson.setId(personId);
         when(personService.updatePerson(eq(personId), any(Person.class))).thenReturn(updatedPerson);
 

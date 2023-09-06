@@ -37,6 +37,7 @@ public class CompanyService {
         entityValidator.validateCompany(updatedCompany);
 
         existingCompany.setLegalName(updatedCompany.getLegalName());
+        existingCompany.setPaymentMethod(updatedCompany.getPaymentMethod());
         existingCompany.setRegistryCode(updatedCompany.getRegistryCode());
         existingCompany.setNumberOfParticipants(updatedCompany.getNumberOfParticipants());
         existingCompany.setAdditionalInformation(updatedCompany.getAdditionalInformation());

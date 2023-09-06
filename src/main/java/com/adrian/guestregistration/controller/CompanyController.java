@@ -2,6 +2,7 @@ package com.adrian.guestregistration.controller;
 
 import com.adrian.guestregistration.model.Company;
 import com.adrian.guestregistration.service.CompanyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,14 +35,14 @@ public class CompanyController {
     }
 
     @PostMapping
-    public ResponseEntity<Company> createCompany(@RequestBody Company company) {
+    public ResponseEntity<Company> createCompany(@Valid @RequestBody Company company) {
         log.info("Creating new company: {}", company);
         Company createdCompany = companyService.createCompany(company);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCompany);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Company> updateCompany(@PathVariable Long id, @RequestBody Company updatedCompany) {
+    public ResponseEntity<Company> updateCompany(@PathVariable Long id, @Valid @RequestBody Company updatedCompany) {
         log.info("Updating company: {}", updatedCompany);
         Company updated = companyService.updateCompany(id, updatedCompany);
         return ResponseEntity.ok(updated);

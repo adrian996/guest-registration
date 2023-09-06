@@ -2,6 +2,7 @@ package com.adrian.guestregistration.controller;
 
 import com.adrian.guestregistration.model.Person;
 import com.adrian.guestregistration.service.PersonService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,14 +35,14 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> createPerson(@RequestBody Person person) {
+    public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person) {
         log.info("Creating new person: {}", person);
         Person createdPerson = personService.createPerson(person);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdPerson);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @RequestBody Person updatedPerson) {
+    public ResponseEntity<Person> updatePerson(@PathVariable Long id, @Valid @RequestBody Person updatedPerson) {
         log.info("Updating person: {}", updatedPerson);
         Person updated = personService.updatePerson(id, updatedPerson);
         return ResponseEntity.ok(updated);

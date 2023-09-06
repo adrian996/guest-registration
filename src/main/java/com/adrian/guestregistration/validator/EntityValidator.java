@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
 public class EntityValidator {
 
     public void validatePerson(Person person) {
-        //TODO validation logic for person entity
-        System.out.println("Person " + person.getFirstName() + "validated");
+        //further validation that might be necessary
+        System.out.println("Person " + person.getFirstName() + " validated");
     }
 
     public void validateCompany(Company company) {
-        //TODO validation logic for company entity
+        //further validation that might be necessary
         System.out.println("Company " + company.getLegalName() + " validated");
     }
 }
