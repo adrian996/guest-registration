@@ -15,6 +15,8 @@ or run the entire with [frontend](https://github.com/adrian996/guestregistration
 docker-compose up
 ```
 
+[Database schema](https://imageupload.io/JFOZfjGiuNAoqMv)
+
 ## Features
 
 - Add/remove/edit event participants
